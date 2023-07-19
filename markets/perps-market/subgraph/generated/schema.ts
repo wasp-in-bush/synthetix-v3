@@ -603,17 +603,21 @@ export class Order extends Entity {
     }
   }
 
-  get newSize(): BigInt {
+  get newSize(): BigInt | null {
     let value = this.get('newSize');
     if (!value || value.kind == ValueKind.NULL) {
-      throw new Error('Cannot return null for a required field.');
+      return null;
     } else {
       return value.toBigInt();
     }
   }
 
-  set newSize(value: BigInt) {
-    this.set('newSize', Value.fromBigInt(value));
+  set newSize(value: BigInt | null) {
+    if (!value) {
+      this.unset('newSize');
+    } else {
+      this.set('newSize', Value.fromBigInt(<BigInt>value));
+    }
   }
 
   get collectedFees(): BigInt | null {
@@ -759,19 +763,6 @@ export class SettlementStrategy extends Entity {
     this.set('marketId', Value.fromBigInt(value));
   }
 
-  get settlementStrategyId(): BigInt {
-    let value = this.get('settlementStrategyId');
-    if (!value || value.kind == ValueKind.NULL) {
-      throw new Error('Cannot return null for a required field.');
-    } else {
-      return value.toBigInt();
-    }
-  }
-
-  set settlementStrategyId(value: BigInt) {
-    this.set('settlementStrategyId', Value.fromBigInt(value));
-  }
-
   get enabled(): boolean {
     let value = this.get('enabled');
     if (!value || value.kind == ValueKind.NULL) {
@@ -914,40 +905,6 @@ export class SettlementStrategy extends Entity {
       this.unset('priceDeviationTolerance');
     } else {
       this.set('priceDeviationTolerance', Value.fromBigInt(<BigInt>value));
-    }
-  }
-
-  get minimumUsdExchangeAmount(): BigInt | null {
-    let value = this.get('minimumUsdExchangeAmount');
-    if (!value || value.kind == ValueKind.NULL) {
-      return null;
-    } else {
-      return value.toBigInt();
-    }
-  }
-
-  set minimumUsdExchangeAmount(value: BigInt | null) {
-    if (!value) {
-      this.unset('minimumUsdExchangeAmount');
-    } else {
-      this.set('minimumUsdExchangeAmount', Value.fromBigInt(<BigInt>value));
-    }
-  }
-
-  get maxRoundingLoss(): BigInt | null {
-    let value = this.get('maxRoundingLoss');
-    if (!value || value.kind == ValueKind.NULL) {
-      return null;
-    } else {
-      return value.toBigInt();
-    }
-  }
-
-  set maxRoundingLoss(value: BigInt | null) {
-    if (!value) {
-      this.unset('maxRoundingLoss');
-    } else {
-      this.set('maxRoundingLoss', Value.fromBigInt(<BigInt>value));
     }
   }
 }

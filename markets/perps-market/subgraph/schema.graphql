@@ -38,7 +38,7 @@ type Order @entity {
 
   fillPrice: BigInt
   accountPnlRealized: BigInt
-  newSize: BigInt!
+  newSize: BigInt
   collectedFees: BigInt
   settelementReward: BigInt
   settler: String
@@ -51,8 +51,7 @@ type SettlementStrategy @entity {
   id: ID!
   strategyId: BigInt!
   marketId: BigInt!
-  settlementStrategyId: BigInt!
-  enabled: Boolean!
+  enabled: Boolean
   strategyType: Int
   settlementDelay: BigInt
   settlementWindowDuration: BigInt
@@ -61,6 +60,4 @@ type SettlementStrategy @entity {
   url: String
   settlementReward: BigInt
   priceDeviationTolerance: BigInt
-  minimumUsdExchangeAmount: BigInt
-  maxRoundingLoss: BigInt
 }
