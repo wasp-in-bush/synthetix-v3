@@ -38,7 +38,5 @@ codegen base-sepolia-andromeda 84532 "synthetix-omnibus:$releaseVersion" androme
 codegen base-mainnet-andromeda 8453 "synthetix-omnibus:$releaseVersion" andromeda
 
 #codegen mainnet 1 "synthetix-omnibus:$releaseVersion" main
-#codegen goerli 5 "synthetix-omnibus:$releaseVersion" main
 #codegen optimism-mainnet 10 "synthetix-omnibus:$releaseVersion" main
-codegen optimism-goerli 420 "synthetix-omnibus:$releaseVersion" main
-#codegen base-goerli 84531 "synthetix-omnibus:$releaseVersion" main
+
