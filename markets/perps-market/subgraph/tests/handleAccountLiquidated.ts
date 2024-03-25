@@ -1,5 +1,5 @@
 import { assert, log } from 'matchstick-as';
-import { handleAccountLiquidated } from '../optimism-goerli';
+import { handleAccountLiquidated } from '../base-mainnet-andromeda';
 import { createAccountLiquidatedEvent } from './event-factories/createAccountLiquidatedEvent';
 
 export default function test(): void {

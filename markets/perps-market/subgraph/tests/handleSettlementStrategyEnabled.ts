@@ -1,5 +1,8 @@
 import { assert, log } from 'matchstick-as';
-import { handleSettlementStrategyAdded, handleSettlementStrategyEnabled } from '../optimism-goerli';
+import {
+  handleSettlementStrategyAdded,
+  handleSettlementStrategyEnabled,
+} from '../base-mainnet-andromeda';
 import { createSettlementStrategyAddedEvent } from './event-factories/createSettlementStrategyAddedEvent';
 import { createSettlementStrategyEnabledEvent } from './event-factories/createSettlementStrategyEnabledEvent';
 
