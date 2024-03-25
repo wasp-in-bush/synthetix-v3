@@ -13,6 +13,7 @@ const getMarketConfigurationForPoolByMarketId = (pool: Pool): Map<string, string
   }
   return marketIdByMarketId;
 };
+
 const deleteRemovedMarketConfigurations = (
   event: PoolConfigurationSet,
   currentMarketIdsInPoolByMarketId: Map<string, string>
@@ -53,18 +54,22 @@ const updateMarketConfiguration = (
     log.error('Expected market id to exists', []);
     return;
   }
+
   const oldWeight = marketConfig.weight;
   const oldMaxDebtShareValue = marketConfig.max_debt_share_value;
+
   if (oldWeight === newWeight && oldMaxDebtShareValue === newMaxDebtShareValue) {
     // No values need to be updated
     return;
   }
+
   marketConfig.weight = newWeight;
   marketConfig.max_debt_share_value = newMaxDebtShareValue;
   marketConfig.updated_at = blockTimestamp;
   marketConfig.updated_at_block = blockNumber;
   marketConfig.save();
 };
+
 const updateExistingMarketConfigurations = (
   event: PoolConfigurationSet,
   currentMarketIdsInPoolByMarketId: Map<string, string>
@@ -98,6 +103,7 @@ const createNewMarketConfigurations = (
   currentMarketIdsInPoolByMarketId: Map<string, string>
 ): void => {
   const poolId = event.params.poolId.toString();
+
   for (let i = 0; i < event.params.markets.length; ++i) {
     const marketId = event.params.markets.at(i).marketId.toString();
     if (!currentMarketIdsInPoolByMarketId.has(marketId)) {
@@ -122,7 +128,9 @@ const updatePoolFields = (event: PoolConfigurationSet, pool: Pool): void => {
   const newTotalWeight = event.params.markets.reduce((sum, x) => {
     return sum.plus(x.weightD18);
   }, new BigInt(0));
+
   const marketIds = event.params.markets.map<string>((x) => x.marketId.toString());
+
   pool.total_weight = newTotalWeight;
   pool.updated_at = event.block.timestamp;
   pool.updated_at_block = event.block.number;
@@ -132,12 +140,14 @@ const updatePoolFields = (event: PoolConfigurationSet, pool: Pool): void => {
 
 export function handlePoolConfigurationSet(event: PoolConfigurationSet): void {
   const poolId = event.params.poolId.toString();
+
   const pool = Pool.load(poolId);
   // Pool will be never undefined, though for safety reasons we are checking for that
   if (pool === null) {
     log.error('Pool id: ' + poolId + ' does not exist', []);
     return;
   }
+
   const currentMarketIdsInPoolByMarketId = getMarketConfigurationForPoolByMarketId(pool);
   // Mutative
   deleteRemovedMarketConfigurations(event, currentMarketIdsInPoolByMarketId);

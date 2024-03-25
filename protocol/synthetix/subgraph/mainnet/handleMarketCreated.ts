@@ -4,6 +4,7 @@ import { BigDecimal } from '@graphprotocol/graph-ts';
 
 export function handleMarketCreated(event: MarketRegistered): void {
   const newMarket = new Market(event.params.marketId.toString());
+
   newMarket.address = event.params.market;
   newMarket.created_at = event.block.timestamp;
   newMarket.created_at_block = event.block.number;

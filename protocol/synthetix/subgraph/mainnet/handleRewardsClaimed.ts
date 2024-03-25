@@ -10,6 +10,7 @@ export function handleRewardsClaimed(event: RewardsClaimedEvent): void {
       .concat('-')
       .concat(event.params.distributor.toHex())
   );
+
   const rewardsClaimed = new RewardsClaimed(
     event.params.distributor
       .toHex()
@@ -18,6 +19,7 @@ export function handleRewardsClaimed(event: RewardsClaimedEvent): void {
       .concat('-')
       .concat(event.logIndex.toString())
   );
+
   let rewardsDistributor = RewardsDistributor.load(event.params.distributor.toHex());
   if (rewardsDistributor !== null) {
     rewardsDistributor.total_claimed = rewardsDistributor.total_claimed.plus(

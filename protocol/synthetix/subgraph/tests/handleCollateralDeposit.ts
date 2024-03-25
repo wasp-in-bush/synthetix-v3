@@ -18,6 +18,7 @@ export default function test(): void {
     now,
     now - 1000
   );
+
   const newCollateralDepositEvent = createDepositEvent(
     23,
     Address.fromString(address),

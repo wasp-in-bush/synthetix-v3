@@ -4,6 +4,7 @@ import { Bytes } from '@graphprotocol/graph-ts';
 
 export function handlePoolNominationRenounced(event: PoolNominationRenounced): void {
   const pool = Pool.load(event.params.poolId.toString());
+
   if (pool !== null) {
     pool.nominated_owner = Bytes.empty();
     pool.updated_at = event.block.timestamp;
